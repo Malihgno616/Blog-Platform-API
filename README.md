@@ -10,8 +10,10 @@
 
 - GET ALL POSTS: `GET /posts`
 - GET A SINGLE POST: `GET /posts/{id}`
+- GET POSTS BY SEARCH TERM: `GET /posts?term={search_term}`
 - CREATE A BLOG POST: `POST /posts`
 - UPDATE A BLOG POST: `PUT /posts/{id}`
+- PARTIAL UPDATE A BLOG POST: `PATCH /posts/{id}`
 - DELETE BLOG POST: `DELETE /posts/{id}`
 
 ### Request/Response Examples
@@ -81,7 +83,7 @@ php artisan migrate
 php artisan serve
 ```
 
-API available at: `http://localhost:8000````
+API available at: `<http://localhost:8000````>
 
 ### 7. Start Server
 
