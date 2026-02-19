@@ -65,15 +65,40 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Posts $posts)
+    public function update(Request $request, Posts $posts)
     {
-        //
+        $validate = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'category' => 'required|string|max:100',
+            'tags' => 'array',
+        ]);
+
+        $posts->update($validate);
+
+        if($request->method() === "PUT") {
+            try {
+                return response()->json([
+                    "message" => "Post updated successfully!",
+                    "data" => $posts
+                ]);
+            } catch (Exception $e) {
+                return response()->json([
+                    'message' => 'Failed to update the post',
+                    'error' => $e->getMessage()
+                ], 500);
+            }
+        } else {
+            return response()->json([
+                'message' => 'Invalid request method'
+            ], 405);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Posts $posts)
+    public function edit(Request $request, Posts $posts)
     {
         //
     }
