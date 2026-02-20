@@ -59,7 +59,29 @@ class PostsController extends Controller
 
     public function search(Request $request)
     {
-        
+        $term = $request->query("term");
+
+        if (!$term) {
+            return response()->json([
+                "message" => "No search term provided",
+                "data" => []
+            ]);
+        }
+
+        $posts = Posts::query()
+            ->where(function ($q) use ($term) {
+                $q->where('title', 'like', "%{$term}%")
+                ->orWhere('content', 'like', "%{$term}%")
+                ->orWhere('category', 'like', "%{$term}%")
+                ->orWhereJsonContains('tags', $term);
+            })
+            ->latest()
+            ->get();
+
+        return response()->json([
+            "message" => "Results",
+            "data" => $posts
+        ]);
     }
 
     /**
