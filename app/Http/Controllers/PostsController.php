@@ -100,7 +100,26 @@ class PostsController extends Controller
      */
     public function edit(Request $request, Posts $posts)
     {
-        //
+        $validate = $request->validate([
+            'title' => 'sometimes|string|max:255',
+            'content' => 'sometimes|string',
+            'category' => 'sometimes|string|max:100',
+            'tags' => 'sometimes|array',
+        ]);
+        
+        try {
+            $posts->update($validate);
+
+            return response()->json([
+                "message" => "Post updated successfully!",
+                "data" => $posts
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Failed to update the post',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**

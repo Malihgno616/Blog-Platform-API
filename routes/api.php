@@ -7,6 +7,6 @@ Route::get('/posts', [PostsController::class, 'index']);
 Route::get('/posts/{id}', [PostsController::class, 'show']);
 Route::post('/posts', [PostsController::class, 'store']);
 Route::put('/posts/{id}', [PostsController::class, 'update']);
-Route::patch('/posts/{id}', [PostsController::class, 'edit']);
+Route::patch('/posts/{posts}', [PostsController::class, 'edit']);
 Route::get('/posts?term=', [PostsController::class, 'search']);
 Route::delete('/posts/{id}', [PostsController::class, 'destroy']);
